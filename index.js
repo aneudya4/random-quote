@@ -3,15 +3,22 @@
 // https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json
 
 const quoteScreen = document.querySelector('.quote-screen span');
-const btns = document.querySelectorAll('.btn i');
+const btn = document.querySelector('.btn i');
 const loader = document.querySelector('.loader');
 const timeLi = document.querySelector('ul li:last-child');
 let currentQuotePlace = 0;
 let quotesArr = [];
 const fetchData = async () => {
-  const req = await fetch('http://quotes.stormconsultancy.co.uk/quotes.json');
+ try{
+     quoteScreen.style.display = 'none';
+     loader.style.display = 'block';
+     const req = await fetch('https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json&key=4');
   const jsonData = await req.json();
   return jsonData;
+ }
+ catch(r){
+ console.log(r)
+ }
 };
 
 const getTime = () => {
@@ -21,37 +28,20 @@ const getTime = () => {
   timeLi.textContent = `${hours}:${minutes}`;
 };
 
+const renderNewQuote =  async () => {
+    const quote =   await fetchData()
+     quoteScreen.style.display = 'block';
+     loader.style.display = 'none';
+    quoteScreen.textContent = quote.quoteText;
+}
+
 window.addEventListener('load', async () => {
   await getTime();
-  quotesArr = await fetchData();
-  quoteScreen.style.display = 'block';
-  loader.style.display = 'none';
-  quoteScreen.textContent = quotesArr[currentQuotePlace].quote;
+  await renderNewQuote()
 });
 
-btns.forEach((btn) => {
-  btn.addEventListener('click', (e) => {
-    if (e.target.classList.contains('fa-caret-left')) {
-      if (currentQuotePlace === 0) {
-        currentQuotePlace = quotesArr.length - 1;
-        quoteScreen.textContent = quotesArr[currentQuotePlace].quote;
-      } else {
-        currentQuotePlace -= 1;
-        quoteScreen.textContent = quotesArr[currentQuotePlace].quote;
-      }
-    } else if (e.target.classList.contains('fa-caret-right')) {
-      if (currentQuotePlace === quotesArr.length - 1) {
-        currentQuotePlace = 0;
-        quoteScreen.textContent = quotesArr[currentQuotePlace].quote;
-      } else {
-        currentQuotePlace += 1;
-        quoteScreen.textContent = quotesArr[currentQuotePlace].quote;
-      }
-    } else {
-      currentQuotePlace = 0;
-      quoteScreen.textContent = quotesArr[currentQuotePlace].quote;
-    }
-  });
-});
+
+  btn.addEventListener('click', renderNewQuote);
+
 
 setInterval(getTime, 1000);
