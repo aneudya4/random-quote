@@ -17,7 +17,11 @@ const fetchData = async () => {
   return jsonData;
  }
  catch(r){
- console.log(r)
+     quoteScreen.style.display = 'block';
+     loader.style.display = 'none';
+     quoteScreen.textContent = 'There was an Error,try again later';
+     quoteScreen.style.color = 'red'
+     quoteScreen.style.backgroundColor = 'white'
  }
 };
 
