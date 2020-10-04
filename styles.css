@@ -91,12 +91,12 @@ ul li:nth-child(2) {
   padding: 0.5em;
 }
 
-.buttons-container .btn {
+.buttons-container .icons {
   font-size: 2em;
   cursor: pointer;
 }
 
-.buttons-container .btn i:hover {
+.buttons-container .icons i:hover {
   color: rgb(90, 86, 86);
 }
 
@@ -111,18 +111,6 @@ ul li:nth-child(2) {
   margin: 0 auto;
 }
 
-footer ul {
-  list-style: none;
-  text-align: center;
-  padding: 0;
-  font-size: 40px;
-  color: white;
-}
-
-li {
-  display: inline;
-  margin: 10px;
-}
 
 a,
 a:visited {
