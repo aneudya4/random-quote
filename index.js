@@ -10,9 +10,9 @@ let currentQuotePlace = 0;
 let quotesArr = [];
 const fetchData = async () => {
  try{
+  quoteScreen.classList.remove('error')
      quoteScreen.style.display = 'none';
      loader.style.display = 'block';
-     quoteScreen.classList.remove('error')
      const req = await fetch('https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json&key=4');
   const jsonData = await req.json();
   return jsonData;
