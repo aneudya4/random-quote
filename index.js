@@ -9,7 +9,7 @@ const timeLi = document.querySelector('ul li:last-child');
 let currentQuotePlace = 0;
 let quotesArr = [];
 const fetchData = async () => {
-  const req = await fetch('https://quotes.stormconsultancy.co.uk/quotes.json');
+  const req = await fetch('http://quotes.stormconsultancy.co.uk/quotes.json');
   const jsonData = await req.json();
   return jsonData;
 };
