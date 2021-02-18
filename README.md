@@ -10,7 +10,7 @@ I want to build 30 Projects in 30 Days as a challenge.
 
 ![liveApp](screenshots/giphy.gif)
 
-![app](screenshots/homepage.png)
+![app](screenshots/landing.png)
 
 ## Built With
 

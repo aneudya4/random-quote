@@ -9,7 +9,7 @@ ul li {
   list-style: none;
 }
 body {
-  background: rgb(31, 30, 30);
+  background-color: white;
 }
 
 .container {
@@ -75,7 +75,7 @@ ul li:nth-child(2) {
   color: white;
 }
 
-.quote-screen span {
+.quote-screen p {
   display: none;
   font-size: 1.2em;
   line-height: 2em;
@@ -83,9 +83,14 @@ ul li:nth-child(2) {
   padding: 1em;
   max-height: 500px;
 }
-.quote-screen span.error {
-  background:white;
-  color:red;
+
+.quote-screen p span {
+  display: block;
+}
+
+.quote-screen p.error {
+  background: white;
+  color: red;
 }
 .buttons-container {
   display: flex;
@@ -113,7 +118,6 @@ ul li:nth-child(2) {
   animation: spin 2s linear infinite;
   margin: 0 auto;
 }
-
 
 a,
 a:visited {

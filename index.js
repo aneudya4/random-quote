@@ -2,27 +2,29 @@
 // http://quotes.stormconsultancy.co.uk/quotes.json
 // https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json
 
-const quoteScreen = document.querySelector('.quote-screen span');
+const quoteScreen = document.querySelector('.quote-screen p');
 const btn = document.querySelector('.btn i');
 const loader = document.querySelector('.loader');
 const timeLi = document.querySelector('ul li:last-child');
 let currentQuotePlace = 0;
 let quotesArr = [];
 const fetchData = async () => {
- try{
-  quoteScreen.classList.remove('error')
-     quoteScreen.style.display = 'none';
-     loader.style.display = 'block';
-     const req = await fetch('https://cors-anywhere.herokuapp.com/https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json&key=4');
-  const jsonData = await req.json();
-  return jsonData;
- }
- catch(r){
-     quoteScreen.style.display = 'block';
-     loader.style.display = 'none';
-     quoteScreen.textContent = 'There was an Error,try again later';
-      quoteScreen.classList.add('error')
- }
+  try {
+    quoteScreen.style.display = 'none';
+    quoteScreen.classList.remove('error');
+    loader.style.display = 'block';
+    const req = await fetch(
+      'https://cors.bridged.cc/https://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json'
+    );
+
+    const jsonData = await req.json();
+    return jsonData;
+  } catch (r) {
+    quoteScreen.style.display = 'block';
+    loader.style.display = 'none';
+    quoteScreen.textContent = 'There was an Error,try again later';
+    quoteScreen.classList.add('error');
+  }
 };
 
 const getTime = () => {
@@ -32,20 +34,21 @@ const getTime = () => {
   timeLi.textContent = `${hours}:${minutes}`;
 };
 
-const renderNewQuote =  async () => {
-    const quote =   await fetchData()
-     quoteScreen.style.display = 'block';
-     loader.style.display = 'none';
-    quoteScreen.textContent = quote.quoteText;
-}
+const renderNewQuote = async () => {
+  const quote = await fetchData();
+  quoteScreen.style.display = 'block';
+  loader.style.display = 'none';
+  quoteScreen.innerHTML = `${quote.quoteText} <span>Author: ${
+    quote.quoteAuthor || 'Not Available'
+  } </span>`;
+};
 
 window.addEventListener('load', async () => {
-  await getTime();
-  await renderNewQuote()
+  getTime();
+
+  await renderNewQuote();
 });
 
-
-  btn.addEventListener('click', renderNewQuote);
-
+btn.addEventListener('click', renderNewQuote);
 
 setInterval(getTime, 1000);
